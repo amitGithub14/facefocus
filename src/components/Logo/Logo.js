@@ -6,7 +6,7 @@ import smile from "./smile.png";
 
 const Logo = () => {
   return (
-    <div className="ma4 mt0">
+    <div className="ma4" style={{ flex: "1 200px" }}>
       <Tilt
         className="Tilt br2 shadow-2"
         options={{ max: 35 }}

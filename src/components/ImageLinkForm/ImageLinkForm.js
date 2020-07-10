@@ -1,11 +1,28 @@
 import React from "react";
+import "./ImageLinkForm.css";
 
-const ImageLinkForm = () => {
+const ImageLinkForm = ({ onChange, handleBtnSubmit }) => {
   return (
-    <div className="ma4 mt0">
-      <p classnmae="f3">
-        {"FaceFocus will detect faces from images that was uploaded here"}
+    <div>
+      <p className="f3">
+        {"Magically will detect faces in your selected picture. Try for fun!"}
       </p>
+      <div className="center">
+        <div className="form bg-white-30 pa4 br3 shadow-5">
+          <input
+            onChange={onChange}
+            className="f4 pa2 w-70"
+            type="text"
+            placeholder="http://picture url..."
+          />
+          <button
+            onClick={handleBtnSubmit}
+            className="w-30 grow f4 link ph3 pv2 dib center ma3 b--lightest-blue white bg-light-blue"
+          >
+            Detect
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
