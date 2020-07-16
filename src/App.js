@@ -36,29 +36,49 @@ const particlesOptions = {
 function App() {
   const [inputState, setInputState] = React.useState("");
   const [ImageUrlState, setImageUrlState] = React.useState("");
-  const [BoxState, setBoxState] = React.useState({});
+  const [BoxState, setBoxState] = React.useState([]);
 
   const app = new Clarifai.App({
     apiKey: "5711a75e17154982bcb5f87c8bda9747",
   });
+
   const boxCalculation = (resp) => {
-    const clarifaiFace =
-      resp.outputs[0].data.regions[0].region_info.bounding_box;
+    const clarifaceArray = resp.outputs[0].data.regions.map(
+      (region) => region.region_info.bounding_box
+    );
+
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(width, height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
+
+    const elArray = [];
+    for (const el of clarifaceArray) {
+      elArray.push({
+        leftCol: el.left_col * width,
+        topRow: el.top_row * height,
+        rightCol: width - el.right_col * width,
+        bottomRow: height - el.bottom_row * height,
+      });
+    }
+    return elArray;
+
+    // const clarifaiFace =
+    //   resp.outputs[0].data.regions[0].region_info.bounding_box;
+
+    // const image = document.getElementById("inputImage");
+    // const width = Number(image.width);
+    // const height = Number(image.height);
+
+    // return [
+    //   {
+    //     leftCol: clarifaiFace.left_col * width,
+    //     topRow: clarifaiFace.top_row * height,
+    //     rightCol: width - clarifaiFace.right_col * width,
+    //     bottomRow: height - clarifaiFace.bottom_row * height,
+    //   },
+    // ];
   };
-  const displayBox = (box) => {
-    setBoxState(box);
-    console.log(box);
-  };
+  const displayBox = (box) => setBoxState(box);
   const handleInputChange = function (event) {
     //console.log(event.target.value);
     setInputState(event.target.value);
@@ -68,7 +88,7 @@ function App() {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, inputState)
       .then((response) => displayBox(boxCalculation(response)))
-      .catch((err) => console.log("error!"));
+      .catch((err) => console.log("error!", err));
   };
 
   return (

@@ -3,7 +3,6 @@ import "tachyons";
 import "./FaceRecognition.css";
 
 const FaceRecognition = ({ picUrl, box }) => {
-  console.log("box", box);
   return (
     <div className="center">
       <div className=" mt2" style={{ position: "relative" }}>
@@ -14,15 +13,18 @@ const FaceRecognition = ({ picUrl, box }) => {
           width="400px"
           height="auto"
         />
-        <div
-          className="bounding-box"
-          style={{
-            top: box.topRow,
-            right: box.rightCol,
-            left: box.leftCol,
-            bottom: box.bottomRow,
-          }}
-        ></div>
+        {box.map((box) => (
+          <div
+            key={box.topRow}
+            className="bounding-box"
+            style={{
+              top: box.topRow,
+              right: box.rightCol,
+              left: box.leftCol,
+              bottom: box.bottomRow,
+            }}
+          ></div>
+        ))}
       </div>
     </div>
   );
