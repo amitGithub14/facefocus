@@ -1,34 +1,44 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import "tachyons";
+import "./Navigation.css";
 
-const Navigation = () => {
-  return (
-    <div>
-      <nav
-        style={{
-          display: "flex",
-        }}
-      >
+const Navigation = ({ onRouteChange, logStatus }) => {
+  if (logStatus === "home") {
+    return (
+      <nav>
         <Logo />
-        <div
-          style={{
-            flex: "2 300px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+        <div className="logInfo">
           <p
-            style={{ alignSelf: "flex-end" }}
-            className="f3 link black underline pa5 pointer"
+            onClick={() => onRouteChange("signout")}
+            className="f3 link black underline pa4 pointer"
           >
             Logout
           </p>
         </div>
       </nav>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <nav>
+        <Logo />
+        <div className="logInfo">
+          <p
+            onClick={() => onRouteChange("signin")}
+            className="f3 link black underline pa4 pointer"
+          >
+            SignIn
+          </p>
+          <p
+            onClick={() => onRouteChange("register")}
+            className="f3 link black underline pa4 pointer"
+          >
+            Register
+          </p>
+        </div>
+      </nav>
+    );
+  }
 };
 
 export default Navigation;

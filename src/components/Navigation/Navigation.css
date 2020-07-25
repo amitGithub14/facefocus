@@ -1,0 +1,9 @@
+nav {
+  display: flex;
+}
+.logInfo {
+  flex: 2 300px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
