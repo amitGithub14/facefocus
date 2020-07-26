@@ -82,7 +82,7 @@ function App() {
   };
   const handleBtnSubmit = function () {
     setImageUrlState(inputState);
-    fetch("http://localhost:3000/imageurl", {
+    fetch("https://evening-mountain-48725.herokuapp.com/imageurl", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -92,7 +92,7 @@ function App() {
       .then((response) => response.json())
       .then((response) => {
         if (response) {
-          fetch("http://localhost:3000/image", {
+          fetch("https://evening-mountain-48725.herokuapp.com/image", {
             method: "put",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
